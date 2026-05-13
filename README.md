@@ -22,7 +22,7 @@ The project combines AI, embedded systems, and computer vision into a unified de
 
 # 🖥️ Dashboard Preview
 
-![Dashboard](assets/images/dashboard.png)
+![Dashboard](assets/images/demo.png)
 
 ---
 
