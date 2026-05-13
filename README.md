@@ -1,104 +1,122 @@
 # AI-Based UAV Tracking and Depth Estimation System 🚁
 
-**Project Codename:** Novocaine
+## Project Codename: Novocaine
 
-An AI-driven system for real-time UAV tracking and 3D position estimation using computer vision (YOLO) and LiDAR.
-
----
-
-## 🚀 Demo
-
-![Demo](assets/images/demo.png)
+An AI-powered UAV tracking and depth estimation platform designed for real-time aerial surveillance, autonomous target tracking, and edge-based processing using computer vision and LiDAR integration.
 
 ---
 
-## 🚀 Features
+# 🚀 Overview
 
-* Real-time object detection using YOLOv8
-* Depth estimation using LiDAR
-* X, Y, Z coordinate tracking
-* Edge processing (on-device tracking)
-* Scalable for UAV and surveillance applications
+Novocaine is a next-generation UAV intelligence system capable of:
+
+- Real-time object detection
+- AI-based target tracking
+- Depth estimation using LiDAR
+- Live telemetry visualization
+- Edge AI processing for low-latency response
+
+The project combines AI, embedded systems, and computer vision into a unified defense-oriented surveillance platform.
 
 ---
 
-## 🧠 System Architecture
+# 🖥️ Dashboard Preview
+
+![Dashboard](assets/images/dashboard.png)
+
+---
+
+# 🎯 Core Features
+
+- Real-time UAV/Object Detection using YOLOv8
+- Depth Estimation via LiDAR
+- X, Y, Z Coordinate Tracking
+- Edge Processing & Onboard Inference
+- Live Telemetry Dashboard
+- AI Analytics & Detection History
+- System Health Monitoring
+- UAV Surveillance Interface
+
+---
+
+# 🧠 System Architecture
 
 ![Architecture](assets/images/architecture.png)
 
 ---
 
-## 📊 Comparative Analysis
+# 📊 Comparative Analysis
 
-![Comparison](assets/images/comparison.png)
+![Comparative Analysis](assets/images/comparison.png)
 
 ---
 
-## 📡 Model Concept
+# 📡 Tracking & Detection Model
 
 ![Model](assets/images/model.png)
 
 ---
 
-## 📚 Literature Review
+# 📚 Literature Review
 
-![Literature](assets/images/literature.png)
-
----
-
-## 📖 References
-
-![References](assets/images/references.png)
+![Literature Review](assets/images/literature.png)
 
 ---
 
-## ⚙️ How it Works
+# ⚙️ Working Pipeline
 
-1. Camera captures real-time video feed
-2. YOLO model detects and identifies the target
-3. LiDAR measures distance to the object
+1. Camera captures live video feed
+2. YOLOv8 performs object detection
+3. LiDAR calculates object distance
 4. System computes X, Y, Z coordinates
-5. Data is used for tracking and navigation
+5. Backend processes telemetry data
+6. Frontend visualizes live UAV tracking data
+7. Edge processing reduces latency and improves response speed
 
 ---
 
-## 📂 Project Structure
+# 🧩 Tech Stack
 
-```
-novocaine/
+## Frontend
+- React
+- Vite
+- TailwindCSS
+- Framer Motion
+
+## Backend
+- Python
+- Flask
+- OpenCV
+
+## AI & Detection
+- YOLOv8
+- Ultralytics
+
+## Hardware
+- ESP32
+- LiDAR Sensor
+- Camera Module
+- Servo System
+
+---
+
+# 📂 Project Structure
+
+```bash
+Novocaine/
 │
-├── src/          # main implementation
-├── tests/        # experiments & validation
-├── assets/       # images and visuals
-├── docs/         # PPTs and reports
-├── research/     # references and study material
+├── Backend/                 # Flask backend & APIs
+│   └── app.py
+│
+├── Frontend/
+│   └── nova-ui/             # React frontend dashboard
+│
+├── assets/
+│   └── images/              # README images & visuals
+│
+├── docs/                    # PPTs & documentation
+├── research/                # Research references
+├── train.py                 # Detection training/testing
 │
 ├── README.md
 └── requirements.txt
-```
-
----
-
-## 🛠️ Tech Stack
-
-* Python
-* OpenCV
-* YOLOv8
-* LiDAR
-* ESP32 (for embedded integration)
-
----
-
-## 📊 Applications
-
-* UAV tracking and interception
-* Defence surveillance systems
-* Autonomous drone navigation
-* Smart monitoring systems
-
----
-
-## 👨‍💻 Author
-
-Chiranth
-ECE | Embedded Systems | Robotics | UAV Systems
