@@ -1,0 +1,37 @@
+@import './fonts.css';
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00FFFF;
+  --color-background: #0B0F14;
+  --color-foreground: #E0E0E0;
+  --color-secondary: #1A2332;
+  --color-destructive: #FF0033;
+  --color-thin-separator: rgba(0, 255, 255, 0.15);
+}
+
+/* Dark mode defaults (root) */
+:root {
+  --background: #0B0F14;
+  --foreground: #E0E0E0;
+  --primary: #00FFFF;
+  --primary-foreground: #0B0F14;
+  --secondary: #1A2332;
+  --secondary-foreground: #E0E0E0;
+  --destructive: #FF0033;
+  --destructive-foreground: #FFFFFF;
+  --thin-separator: rgba(0, 255, 255, 0.15);
+}
+
+/* Light Mode overrides */
+.light-mode {
+  --background: #F0F8FF;
+  --foreground: #333333;
+  --primary: #87CEEB;
+  --primary-foreground: #0B0F14;
+  --secondary: #ADD8E6;
+  --secondary-foreground: #0B0F14;
+  --destructive: #FF0033;
+  --destructive-foreground: #FFFFFF;
+  --thin-separator: rgba(135, 206, 235, 0.3);
+}
