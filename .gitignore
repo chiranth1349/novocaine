@@ -189,7 +189,7 @@ cython_debug/
 # .idea/
 
 # Abstra
-#   Abstra is an AI-powered process automation framework.
+#   Abstra is an AI-powered process automation framework.git push origin main
 #   Ignore directories containing user credentials, local state, and settings.
 #   Learn more at https://abstra.io/docs
 .abstra/
@@ -221,3 +221,35 @@ __marimo__/
 __pycache__/
 runs/
 data/
+
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# YOLO training outputs
+Backend/runs/
+
+Backend/core/
+Backend/runs/
+venv/
+*.pt
+__pycache__/
+
+# Model weights
+*.pt
+
+# Frontend build junk
+Frontend/ncui/node_modules/
+Frontend/ncui/dist/
+
+# VS Code
+.vscode/
+
+Backend/core/
+Backend/runs/
+structure.txt
+
+Backend/src/midas_test.py
+Backend/tests/object.py
