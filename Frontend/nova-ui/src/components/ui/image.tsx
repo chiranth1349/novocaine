@@ -1,5 +1,5 @@
-type Props = React.ImgHTMLAttributes<HTMLImageElement>;
+type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>;
 
-export function Image(props: Props) {
+export function Image(props: ImageProps) {
   return <img {...props} />;
 }

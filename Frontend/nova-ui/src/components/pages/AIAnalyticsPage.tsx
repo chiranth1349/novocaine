@@ -4,15 +4,16 @@ import { Brain, TrendingUp, AlertTriangle, CheckCircle, Lightbulb, Zap } from 'l
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
-type AIAnalytics = {
-  _id: string;
-  modelName?: string;
-  accuracy?: number;
-  detectionsProcessed?: number;
-  avgInferenceTime?: number;
-  timestamp?: string;
-};
 import { format } from 'date-fns';
+
+type AIRecommendations = {
+  _id: string;
+  priority?: string;
+  category?: string;
+  recommendationText?: string;
+  relatedMetrics?: string;
+  generatedAt?: string;
+};
 
 export default function AIAnalyticsPage() {
   const [recommendations, setRecommendations] = useState<AIRecommendations[]>([]);
@@ -21,43 +22,63 @@ export default function AIAnalyticsPage() {
   useEffect(() => {
     loadRecommendations();
   }, []);
-  const loadAnalytics = async () => {
-  setIsLoading(true);
 
-  const mockAnalytics: AIAnalytics[] = [
-    {
-      _id: '1',
-      modelName: 'YOLOv8 Nano',
-      accuracy: 96.4,
-      detectionsProcessed: 1428,
-      avgInferenceTime: 18,
-      timestamp: new Date().toISOString(),
-    },
-    {
-      _id: '2',
-      modelName: 'DepthNet v2',
-      accuracy: 93.1,
-      detectionsProcessed: 982,
-      avgInferenceTime: 24,
-      timestamp: new Date(Date.now() - 3600000).toISOString(),
-    },
-    {
-      _id: '3',
-      modelName: 'ThermalTrack AI',
-      accuracy: 91.7,
-      detectionsProcessed: 621,
-      avgInferenceTime: 31,
-      timestamp: new Date(Date.now() - 7200000).toISOString(),
-    },
-  ];
-
-  setAnalytics(mockAnalytics);
-  setIsLoading(false);
-};
-  const loadRecommendations = async () => {
+  const loadRecommendations = () => {
     setIsLoading(true);
-    const result = await BaseCrudService.getAll<AIRecommendations>('airecommendations', {}, { limit: 50 });
-    setRecommendations(result.items);
+
+    // Mock AI recommendations — replace with real API call when backend endpoint is ready
+    const mockRecommendations: AIRecommendations[] = [
+      {
+        _id: '1',
+        priority: 'High',
+        category: 'Detection',
+        recommendationText: 'Detection confidence dropped below 80% in low-light conditions. Consider switching to thermal imaging mode.',
+        relatedMetrics: 'confidence: 74%, lux: 12',
+        generatedAt: new Date().toISOString(),
+      },
+      {
+        _id: '2',
+        priority: 'High',
+        category: 'Detection',
+        recommendationText: 'Multiple overlapping bounding boxes detected. NMS threshold may need tuning.',
+        relatedMetrics: 'iou: 0.68, detections: 14',
+        generatedAt: new Date(Date.now() - 1800000).toISOString(),
+      },
+      {
+        _id: '3',
+        priority: 'Medium',
+        category: 'Performance',
+        recommendationText: 'GPU utilization has been above 90% for the past 30 minutes. Reduce model resolution to improve throughput.',
+        relatedMetrics: 'gpu_usage: 93%, fps: 18',
+        generatedAt: new Date(Date.now() - 3600000).toISOString(),
+      },
+      {
+        _id: '4',
+        priority: 'Medium',
+        category: 'Performance',
+        recommendationText: 'Inference latency averaging 31ms. YOLOv8-Nano may be more appropriate for real-time tracking.',
+        relatedMetrics: 'avg_inference: 31ms, target: 20ms',
+        generatedAt: new Date(Date.now() - 5400000).toISOString(),
+      },
+      {
+        _id: '5',
+        priority: 'Low',
+        category: 'Tracking',
+        recommendationText: 'Target lock lost 3 times in the last session due to fast lateral movement. Increase Kalman filter aggressiveness.',
+        relatedMetrics: 'lock_failures: 3, session_duration: 12min',
+        generatedAt: new Date(Date.now() - 7200000).toISOString(),
+      },
+      {
+        _id: '6',
+        priority: 'Low',
+        category: 'Tracking',
+        recommendationText: 'Trajectory prediction accuracy is at 88%. Additional training data for aerial vehicle classes recommended.',
+        relatedMetrics: 'pred_accuracy: 88%, class: UAV',
+        generatedAt: new Date(Date.now() - 9000000).toISOString(),
+      },
+    ];
+
+    setRecommendations(mockRecommendations);
     setIsLoading(false);
   };
 

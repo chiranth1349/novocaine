@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Database, TrendingUp } from 'lucide-react';
+import { format } from 'date-fns';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
+import { api } from '@/lib/api';
+
 type TrackedDataLogs = {
   _id: string;
-  objectId?: string;
-  objectType?: string;
-  coordX?: number;
-  coordY?: number;
-  coordZ?: number;
-  speed?: number;
+  label?: string;
   confidence?: number;
+  x?: number;
+  y?: number;
+  z?: number;
   timestamp?: string;
 };
-import { format } from 'date-fns';
 
 export default function TrackedDataPage() {
   const [trackedData, setTrackedData] = useState<TrackedDataLogs[]>([]);
@@ -26,58 +26,25 @@ export default function TrackedDataPage() {
   }, []);
 
   const loadTrackedData = async () => {
-  setIsLoading(true);
-
-  const mockData: TrackedDataLogs[] = [
-    {
-      _id: '1',
-      objectId: 'UAV-204',
-      objectType: 'Drone',
-      coordX: 12.4,
-      coordY: -3.8,
-      coordZ: 142.6,
-      speed: 24.8,
-      confidence: 96.2,
-      timestamp: new Date().toISOString(),
-    },
-    {
-      _id: '2',
-      objectId: 'UAV-118',
-      objectType: 'Aircraft',
-      coordX: -8.1,
-      coordY: 5.4,
-      coordZ: 201.3,
-      speed: 41.7,
-      confidence: 91.4,
-      timestamp: new Date(Date.now() - 3600000).toISOString(),
-    },
-    {
-      _id: '3',
-      objectId: 'UAV-330',
-      objectType: 'Quadcopter',
-      coordX: 3.2,
-      coordY: 1.7,
-      coordZ: 98.4,
-      speed: 12.5,
-      confidence: 88.9,
-      timestamp: new Date(Date.now() - 7200000).toISOString(),
-    },
-  ];
-
-  setTrackedData(mockData);
-  setIsLoading(false);
-};
+    setIsLoading(true);
+    try {
+      const data = await api.getTrackedData();
+      setTrackedData(data);
+    } catch (e) {
+      console.error('Failed to load tracked data', e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const avgConfidence = trackedData.length > 0
-    ? (trackedData.reduce((sum, item) => sum + (item.confidenceScore || 0), 0) / trackedData.length * 100).toFixed(1)
+    ? (trackedData.reduce((sum, item) => sum + (item.confidence || 0), 0) / trackedData.length).toFixed(1)
     : '0.0';
 
-  const avgDuration = trackedData.length > 0
-    ? (trackedData.reduce((sum, item) => sum + (item.trackingDuration || 0), 0) / trackedData.length).toFixed(1)
-    : '0.0';
+  const avgDuration = '0.0';
 
   const classifications = trackedData.reduce((acc, item) => {
-    const classification = item.objectClassification || 'Unknown';
+    const classification = item.label || 'Unknown';
     acc[classification] = (acc[classification] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
@@ -202,32 +169,32 @@ export default function TrackedDataPage() {
                       <tbody>
                         {trackedData.map((item, index) => (
                           <motion.tr
-                            key={item._id}
+                            key={item._id || index}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.2, delay: index * 0.02 }}
                             className="border-t border-thin-separator hover:bg-background/50 transition-colors"
                           >
                             <td className="px-4 py-3 text-sm text-foreground/80">
-                              {item._createdDate ? format(new Date(item._createdDate), 'MMM dd, HH:mm:ss') : 'N/A'}
+                              {item.timestamp ? format(new Date(item.timestamp), 'MMM dd, HH:mm:ss') : 'N/A'}
                             </td>
                             <td className="px-4 py-3 text-sm font-mono text-primary">
-                              {item.coordinateX?.toFixed(2) || '0.00'}
+                              {item.x?.toFixed(2) ?? '0.00'}
                             </td>
                             <td className="px-4 py-3 text-sm font-mono text-primary">
-                              {item.coordinateY?.toFixed(2) || '0.00'}
+                              {item.y?.toFixed(2) ?? '0.00'}
                             </td>
                             <td className="px-4 py-3 text-sm font-mono text-primary">
-                              {item.coordinateZ?.toFixed(2) || '0.00'}
+                              {item.z?.toFixed(2) ?? '0.00'}
                             </td>
                             <td className="px-4 py-3 text-sm text-secondary">
-                              {item.confidenceScore ? `${(item.confidenceScore * 100).toFixed(1)}%` : 'N/A'}
+                              {item.confidence ? `${item.confidence}%` : 'N/A'}
                             </td>
                             <td className="px-4 py-3 text-sm text-foreground/80">
-                              {item.trackingDuration ? `${item.trackingDuration.toFixed(1)}s` : 'N/A'}
+                              N/A
                             </td>
                             <td className="px-4 py-3 text-sm text-foreground/80">
-                              {item.objectClassification || 'Unknown'}
+                              {item.label ?? 'Unknown'}
                             </td>
                           </motion.tr>
                         ))}
